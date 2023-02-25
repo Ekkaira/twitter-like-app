@@ -26,7 +26,7 @@ const App = () => {
   ];
 
   return (
-    <StyledAppBlock>
+    <AppBlock>
       <AppHeader />
       <div className="search-panel d-flex">
         <SearchPanel />
@@ -34,7 +34,7 @@ const App = () => {
       </div>
       <PostList posts={data} />
       <PostAddForm />
-    </StyledAppBlock>
+    </AppBlock>
   );
 };
 
