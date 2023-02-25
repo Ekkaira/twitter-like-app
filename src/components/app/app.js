@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import AppHeader from "../app-header";
 import SearchPanel from "../search-panel";
@@ -14,28 +14,63 @@ const AppBlock = styled.div`
   max-width: 800px;
 `;
 
-const StyledAppBlock = styled(AppBlock)`
-  background-color: grey;
-`;
+// const StyledAppBlock = styled(AppBlock)`
+//   background-color: grey;
+// `;
 
-const App = () => {
-  const data = [
-    { label: "Going to learn React", important: true, id: "qweqds" },
-    { label: "That is so good!", important: false, id: "afgdsgdf" },
-    { label: "I need a break...", important: false, id: "bfgfvd" },
-  ];
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        { label: "Going to learn React", important: true, id: "1" },
+        { label: "That is so good!", important: false, id: "2" },
+        { label: "I need a break...", important: false, id: "3" },
+      ],
+    };
+    this.deleteItem = this.deleteItem.bind(this);
+    this.addItem = this.addItem.bind(this);
 
-  return (
-    <AppBlock>
-      <AppHeader />
-      <div className="search-panel d-flex">
-        <SearchPanel />
-        <PostStatusFilter />
-      </div>
-      <PostList posts={data} />
-      <PostAddForm />
-    </AppBlock>
-  );
-};
+    this.maxId = 4;
+  }
 
-export default App;
+  deleteItem(id) {
+    this.setState(({ data }) => {
+      const index = data.findIndex((elem) => elem.id === id);
+
+      const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
+
+      return {
+        data: newArr,
+      };
+    });
+  }
+
+  addItem(body) {
+    const newItem = {
+      label: body,
+      important: false,
+      id: this.maxId++,
+    };
+    this.setState(({ data }) => {
+      const newArr = [...data, newItem];
+      return {
+        data: newArr,
+      };
+    });
+  }
+
+  render() {
+    return (
+      <AppBlock>
+        <AppHeader />
+        <div className="search-panel d-flex">
+          <SearchPanel />
+          <PostStatusFilter />
+        </div>
+        <PostList posts={this.state.data} onDelete={this.deleteItem} />
+        <PostAddForm onAdd={this.addItem} />
+      </AppBlock>
+    );
+  }
+}
