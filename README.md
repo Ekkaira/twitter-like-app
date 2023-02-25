@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# React course practice app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+During creation of this application, learned and practiced styled components, class components, immutability in js.
+Also worked with Bootstrap and Reactstrap.
 
 ## Available Scripts
 
